@@ -10,6 +10,7 @@
     var async_reqs = 0;
     var data = [];
     var current_profile = [];
+    var cache = '';
 
 // The Logic
     // On every request from the background script get the rest messages
@@ -39,9 +40,27 @@
             }
 
             current_profile['name'] = $('#wmMasterViewThreadlist ._kv .accessible_elem').text();
-            current_profile['photo'] = $('#wmMasterViewThreadlist ._kv img').attr('src');
-            $('#map').empty();
-            $('#map').append('<li style="list-style-type: none;" class="_k- _kv" role="listitem"><div class="clearfix"><div class="clearfix pvs"><div class="MercuryThreadImage mrm lfloat _ohe"><div class="_55lt" size="50" style="width:50px;height:50px;" data-reactid=".2u"><img src="' + current_profile['photo'] + '" width="50" height="50" alt="" class="img" data-reactid=".2u.0"></div></div><div class="_l4"><span class="accessible_elem">' + current_profile['name'] + '</span><div class="_l2"><span aria-hidden="true" class="_l1">' + current_profile['name'] + ' (happy)</span></div><div class="clearfix"><div class="_l6 rfloat _ohf"></div><div class="_l3 fsm fwn fcg"><span class="MercuryRepliedIndicator seenByListener repliedLast seenByAll"></span>Suggestion topic: [topic]</div></div></div></div></div></li>');
+            cache = $('#wmMasterViewThreadlist ._kv img').attr('src');
+
+            if (cache != current_profile['photo'])
+            {
+                current_profile['photo'] = cache;
+
+                var requestBody = {name: current_profile['name']};
+
+                $.ajax({
+                    type:"POST",
+                    url: "https://localhost:5000/senti",
+                    data: current_profile['name'],
+                    processData: false,
+                    complete: function(msg) {
+                        var json = jQuery.parseJSON(msg.responseText);
+
+                        $('#map').empty();
+                        $('#map').append('<li style="list-style-type: none;" class="_k- _kv" role="listitem"><div class="clearfix"><div class="clearfix pvs"><div class="MercuryThreadImage mrm lfloat _ohe"><div class="_55lt" size="50" style="width:50px;height:50px;" data-reactid=".2u"><img src="' + current_profile['photo'] + '" width="50" height="50" alt="" class="img" data-reactid=".2u.0"></div></div><div class="_l4"><span class="accessible_elem">' + current_profile['name'] + '</span><div class="_l2"><span aria-hidden="true" class="_l1">' + current_profile['name'] + ' (' + json['sentiment'] +')</span></div><div class="clearfix"><div class="_l6 rfloat _ohf"></div><div class="_l3 fsm fwn fcg"><span class="MercuryRepliedIndicator seenByListener repliedLast seenByAll"></span>' + json['topics'].join(', ') + '</div></div></div></div></div></li>');
+                    }
+                });
+            }
         }, 100);
     });
 
