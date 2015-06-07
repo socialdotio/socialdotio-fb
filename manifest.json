@@ -1,5 +1,5 @@
 {
-  "name": "Marauders Map",
+  "name": "Socialdotio Map",
   "version": "0.0.1",
   "manifest_version": 2,
   "description": "Creepily track your friends from FB messages",
@@ -22,14 +22,14 @@
     "cookies",
     "https://*/*"
   ],
-  "web_accessible_resources": ["js/mapbox.js.map"],
+  "web_accessible_resources": [""],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "content_scripts": [
     {
       "matches":[
         "https://www.facebook.com/messages/*"
       ],
-      "js":["js/jquery.js", "js/mapbox.js", "js/typeahead.js", "src/fb/content.js"],
+      "js":["js/jquery.js", "js/typeahead.js", "src/fb/content.js"],
       "css":["css/mapbox.css"]
     }
   ]
