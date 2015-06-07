@@ -39,8 +39,9 @@
             }
 
             current_profile['name'] = $('#wmMasterViewThreadlist ._kv .accessible_elem').text();
+            current_profile['photo'] = $('#wmMasterViewThreadlist ._kv img').attr('src');
             $('#map').empty();
-            $('#map').append('<li style="list-style-type: none;" class="_k- _kv" role="listitem" id="recent:user:1189350497"><div class="clearfix"><div class="clearfix pvs"><div class="MercuryThreadImage mrm lfloat _ohe"><div class="_55lt" size="50" style="width:50px;height:50px;" data-reactid=".2u"><img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xap1/v/t1.0-1/p50x50/10933961_710988779008038_7209947178747605965_n.jpg?oh=013381d6c5944d2b0b84ace3784c0e36&amp;oe=55F72BD7&amp;__gda__=1442533601_062b6fe4c3f151cce5950cac50787806" width="50" height="50" alt="" class="img" data-reactid=".2u.0"></div></div><div class="_l4"><span class="accessible_elem">' + current_profile['name'] + '</span><div class="_l2"><span aria-hidden="true" class="_l1">' + current_profile['name'] + '</span></div><div class="clearfix"><div class="_l6 rfloat _ohf"></div><div class="_l3 fsm fwn fcg"><span class="MercuryRepliedIndicator seenByListener repliedLast seenByAll"></span>Suggestion topic: [topic]</div></div></div></div></div></li>');
+            $('#map').append('<li style="list-style-type: none;" class="_k- _kv" role="listitem"><div class="clearfix"><div class="clearfix pvs"><div class="MercuryThreadImage mrm lfloat _ohe"><div class="_55lt" size="50" style="width:50px;height:50px;" data-reactid=".2u"><img src="' + current_profile['photo'] + '" width="50" height="50" alt="" class="img" data-reactid=".2u.0"></div></div><div class="_l4"><span class="accessible_elem">' + current_profile['name'] + '</span><div class="_l2"><span aria-hidden="true" class="_l1">' + current_profile['name'] + ' (happy)</span></div><div class="clearfix"><div class="_l6 rfloat _ohf"></div><div class="_l3 fsm fwn fcg"><span class="MercuryRepliedIndicator seenByListener repliedLast seenByAll"></span>Suggestion topic: [topic]</div></div></div></div></div></li>');
         }, 100);
     });
 
