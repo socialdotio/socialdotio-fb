@@ -9,6 +9,7 @@
     // Counter for total number of async rest calls made
     var async_reqs = 0;
     var data = [];
+    var current_profile = [];
 
 // The Logic
     // On every request from the background script get the rest messages
@@ -22,12 +23,8 @@
 
     // When the document is pull cached big pipe data out of it and add the map html
     $( document ).ready(function() {
-        // Pull cached big-piped data (not async loaded and most recent)
-        //getPipeMessages(document.URL, function() {});
-
         // Set up map
         setupMap(document);
-        //setupMapControls(document);
 
         //Check for URL change (react simply diffs and rerenders page so we want to remove map overlay if the URL changes)
         var storedHash = document.URL;
@@ -40,6 +37,10 @@
                     $('#map-tab').css("display", "none");
                 }
             }
+
+            current_profile['name'] = $('#wmMasterViewThreadlist ._kv .accessible_elem').text();
+            $('#map').empty();
+            $('#map').append('<li style="list-style-type: none;" class="_k- _kv" role="listitem" id="recent:user:1189350497"><div class="clearfix"><div class="clearfix pvs"><div class="MercuryThreadImage mrm lfloat _ohe"><div class="_55lt" size="50" style="width:50px;height:50px;" data-reactid=".2u"><img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xap1/v/t1.0-1/p50x50/10933961_710988779008038_7209947178747605965_n.jpg?oh=013381d6c5944d2b0b84ace3784c0e36&amp;oe=55F72BD7&amp;__gda__=1442533601_062b6fe4c3f151cce5950cac50787806" width="50" height="50" alt="" class="img" data-reactid=".2u.0"></div></div><div class="_l4"><span class="accessible_elem">' + current_profile['name'] + '</span><div class="_l2"><span aria-hidden="true" class="_l1">' + current_profile['name'] + '</span></div><div class="clearfix"><div class="_l6 rfloat _ohf"></div><div class="_l3 fsm fwn fcg"><span class="MercuryRepliedIndicator seenByListener repliedLast seenByAll"></span>Suggestion topic: [topic]</div></div></div></div></div></li>');
         }, 100);
     });
 
@@ -77,7 +78,7 @@
                 }
                 else
                 {
-                    console.log("No messages returned: "+msg.responseText);
+                    console.log("No messages returned: " + msg.responseText);
                 }
                 callback();
             }
@@ -91,7 +92,7 @@
         mapTab.id = 'map-tab';
         $('body').append(mapTab);
         $('#map-tab').addClass("map-label");
-        $('#map-tab').text('Socialdotio Map');
+        $('#map-tab').text('Socialdotio Fb');
 
         // Create content for DOM
         var mapDiv = document.createElement('div');
